@@ -23,22 +23,23 @@ app.route('/appnew').get(function(req, res)
                                  res.write('<th>50&Above</th>');
                                  res.write('</tr>');
                                   res.write('<tr>');
-                                 res.write('<th> IND </th>');
+                                 
                                  
                               
                                             var query=( [
-                                                                               { $match: { $and: [ { age: { $gt: 0, $lt: 30 } }, { gender: 'male'},{NAT:'IND'} ] } },
-                                                                               { $group: { _id: null, count: { $sum: 1 } } }
+                                                                               { $match: { $and: [ { age: { $gt: 0, $lt: 30 } }, { gender: 'male'} ] } },
+                                                                               { $group: { _id:$NAT, count: { $sum: 1 } } }
                                                              ] );
                        
                                           var cursor= db.collection('Information').aggregate(query);
-                                          cursor.forEach(function(item) {
+                                          cursor.forEach(function(item) { 
+                                                                                                    res.write('<th>+ item._id </th>');
                                                                                                     res.write("<th>" + item.count + "</th>");
                                                                                         });
                                       
                                          var query=( [
-                                                                                 { $match: { $and: [ { age: { $gt: 30, $lt: 50 } }, { gender: 'male'},{NAT:'IND'} ] } },
-                                                                                 { $group: { _id: null, count: { $sum: 1 } } }
+                                                                                 { $match: { $and: [ { age: { $gt: 30, $lt: 50 } }, { gender: 'male'} ] } },
+                                                                                 { $group: { _id:$NAT, count: { $sum: 1 } } }
                                                           ] );
                        
                                         var cursor1= db.collection('Information').aggregate(query);
@@ -47,8 +48,8 @@ app.route('/appnew').get(function(req, res)
                                                                                           });
 
                                        var query=( [
-                                                                               { $match: { $and: [ { age: { $gt: 50 } }, { gender: 'male'},{NAT:'IND'} ] } },
-                                                                               { $group: { _id: null, count: { $sum: 1 } } }
+                                                                               { $match: { $and: [ { age: { $gt: 50 } }, { gender: 'male'}] } },
+                                                                               { $group: { _id:$NAT, count: { $sum: 1 } } }
                                                         ] );
                        
                                       var cursor2= db.collection('Information').aggregate(query);
@@ -68,21 +69,22 @@ app.route('/appnew').get(function(req, res)
                                           res.write('<th>50&Above</th>');
                                           res.write('</tr>');
                                           res.write('<tr>');
-                                          res.write('<th>" IND </th>');
+                                      
 
                                       var query=( [
-                                                                          { $match: { $and: [ { age: { $gt: 0, $lt: 30 } }, { gender: 'female'},{NAT:'IND'} ] } },
-                                                                          { $group: { _id: null, count: { $sum: 1 } } }
+                                                                          { $match: { $and: [ { age: { $gt: 0, $lt: 30 } }, { gender: 'female'} ] } },
+                                                                          { $group: { _id: $NAT, count: { $sum: 1 } } }
                                                        ] );
                        
                                      var cursor3= db.collection('Information').aggregate(query);
-                                     cursor3.forEach(function(item3) {
+                                     cursor3.forEach(function(item3) {               
+                                                                                                      res.write('<th>+ item3._id </th>');
                                                                                                        res.write("<th>" + item3.count + "</th>");
                                                                                        });
                          
                                     var query=( [
-                                                                          { $match: { $and: [ { age: { $gt: 30, $lt: 50 } }, { gender: 'female'},{NAT:'IND'} ] } },
-                                                                          { $group: { _id: null, count: { $sum: 1 } } }
+                                                                          { $match: { $and: [ { age: { $gt: 30, $lt: 50 } }, { gender: 'female'}] } },
+                                                                          { $group: { _id: $NAT, count: { $sum: 1 } } }
                                                      ] );
                        
                                   var cursor4= db.collection('Information').aggregate(query);
@@ -91,8 +93,8 @@ app.route('/appnew').get(function(req, res)
                                                                                      });
 
                                  var query=( [
-                                                                          { $match: { $and: [ { age: { $gt: 50 } }, { gender: 'male'},{NAT:'IND'} ] } },
-                                                                         { $group: { _id: null, count: { $sum: 1 } } }
+                                                                          { $match: { $and: [ { age: { $gt: 50 } }, { gender: 'male'}] } },
+                                                                         { $group: { _id: $NAT, count: { $sum: 1 } } }
                                                  ] );
                        
                                var cursor5= db.collection('Information').aggregate(query);
@@ -107,4 +109,4 @@ app.route('/appnew').get(function(req, res)
                                           db.close();
         });
  
-var server = app.listen(3000, function() {}); 
+var server = app.listen(3000);
